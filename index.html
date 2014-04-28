@@ -1,0 +1,532 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+<title>Aplic. Web de jQuery Mobile</title>
+<link href="jquery.mobile-1.0.min.css" rel="stylesheet" type="text/css"/>
+<script src="jquery-1.6.4.min.js" type="text/javascript"></script>
+<script src="jquery.mobile-1.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	$("#envioAlumno").click(function(){
+		var nombre=$("#nombre").val();
+		var paterno=$("#paterno").val();
+		var materno=$("#materno").val();
+		var carreras=$("#carreras").val();
+		var modalidad=$("#modalidad").val();
+		var numero=$("#numero").val();
+		$.ajax({
+		type:"POST",
+		url:"http://carsitslibres.url.ph/procesarAlumno.php",
+		data:({nombre:nombre, paterno:paterno, materno:materno, carreras:carreras, modalidad:modalidad, numero:numero}),
+		cache:false,
+		dataType:"text",
+		success:exitoso
+		});
+				});
+				function exitoso(data){
+					alert(data);
+				}
+	$("#envioPersonal").click(function(){
+		var nombre=$("#pnombre").val();
+		var paterno=$("#ppaterno").val();
+		var materno=$("#pmaterno").val();
+		$.ajax({
+		type:"POST",
+		url:"http://carsitslibres.url.ph/procesarPersonal.php",
+		data:({pnombre:nombre, ppaterno:paterno, pmaterno:materno}),
+		cache:false,
+		dataType:"text",
+		success:exitoso
+		});
+				});
+	$("#envioAutoAlumno").click(function(){
+		var placas=$("#placas").val();
+		var color=$("#color").val();
+		var marca=$("#marca").val();
+		var modelo=$("#modelo").val();
+		$.ajax({
+		type:"POST",
+		url:"http://carsitslibres.url.ph/procesarAutoAlumno.php",
+		data:({placas:placas, color:color, marca:marca, modelo:modelo}),
+		cache:false,
+		dataType:"text",
+		success:exitoso
+		});
+				});
+	$("#envioAutoPersonal").click(function(){
+		var placas=$("#pplacas").val();
+		var color=$("#pcolor").val();
+		var marca=$("#pmarca").val();
+		var modelo=$("#pmodelo").val();
+		$.ajax({
+		type:"POST",
+		url:"http://carsitslibres.url.ph/procesarAutoPersonal.php",
+		data:({pplacas:placas, pcolor:color, pmarca:marca, pmodelo:modelo}),
+		cache:false,
+		dataType:"text",
+		success:exitoso
+		});
+				});
+				$("#btnbuscarAlumno").click(function(){
+		var bplacas=$("#txtbuscar").val();
+		$.ajax({
+		type:"POST",
+		url:"http://carsitslibres.url.ph/buscarAlumno.php",
+		data:({placab:bplacas}),
+		cache:false,
+		dataType:"text",
+		success:exitoso
+		});
+				});
+	$("#btnbuscarPersonal").click(function(){
+		var bplacas=$("#txtbuscarP").val();
+		$.ajax({
+		type:"POST",
+		url:"http://carsitslibres.url.ph/buscarPersonal.php",
+		data:({placab:bplacas}),
+		cache:false,
+		dataType:"text",
+		success:exitoso
+		});
+				});
+
+$("#EliminarAlumno").click(function(){
+		var bplacas=$("#txtbuscar").val();
+		$.ajax({
+		type:"POST",
+		url:"http://carsitslibres.url.ph/procesar.php",
+		data:({placab:bplacas}),
+		cache:false,
+		dataType:"text",
+		success:exitoso
+		});
+				});
+				$("#EliminarPersonal").click(function(){
+		var bplacas=$("#txtbuscar").val();
+		$.ajax({
+		type:"POST",
+		url:"http://carsitslibres.url.ph/procesarP.php",
+		data:({placab:bplacas}),
+		cache:false,
+		dataType:"text",
+		success:exitoso
+		});
+				});
+
+
+$("#OAenvioAutoAlumno").click(function(){
+		var OAplacas=$("#OAplacas").val();
+		alert("OAEnvioAutoAlumno");
+		var OAcolor=$("#OAcolor").val();
+		var OAmarca=$("#OAmarca").val();
+		var OAmodelo=$("#OAmodelo").val();
+		var OAfolio=$("#OAfolio").val();
+		alert("Placas: "+OAplacas +"\nColor: "+OAcolor+"\nMarca: "+OAmarca+"\nModelo: "+OAmodelo+"\nFolio: "+OAfolio);
+		$.ajax({
+		type:"POST",
+		url:"http://carsitslibres.url.ph/procesarAutoAlumno2.php",
+		data:({placas:OAplacas, color:OAcolor, marca:OAmarca, modelo:OAmodelo, folio:OAfolio}),
+		cache:false,
+		dataType:"text",
+		success:exitoso
+		});
+		});
+
+		$("#OPenvioAutoPersonal").click(function(){
+
+		var OPplacas=$("#OPplacas").val();
+		var OPcolor=$("#OPcolor").val();
+		var OPmarca=$("#OPmarca").val();
+		var OPmodelo=$("#OPmodelo").val();
+		var OPfolio=$("#OPfolio").val();
+		alert("Placas: "+OPplacas +"\nColor: "+OPcolor+"\nMarca: "+OPmarca+"\nModelo: "+OPmodelo+"\nFolio: "+OPfolio);
+		$.ajax({
+		type:"POST",
+		url:"http://carsitslibres.url.ph/procesarAutoPersonal2.php",
+		data:({placas:OPplacas, color:OPcolor, marca:OPmarca, modelo:OPmodelo, folio:OPfolio}),
+		cache:false,
+		dataType:"text",
+		success:exitoso
+		});
+		});
+});
+</script>
+</head> 
+<body> 
+
+<div data-role="page" id="page">
+	<div data-role="header">
+		<h1>Bienvenido</h1>
+        <h1>Menú Principal</h1>
+	</div>
+	<div data-role="content">	
+		<ul data-role="listview">
+			<li><a href="#registrar">Registrar</a></li>
+            <li><a href="#editar">Editar</a></li>
+         	<li><a href="#otroAuto">Agregar Auto a un usuario existente</a></li>
+		</ul>		
+	</div>
+	<div data-role="footer">
+		<h4>Menú Principal</h4>
+	</div>
+</div>
+
+<div data-role="page" id="otroAutoPersonal">
+	<div data-role="header">
+		<h1>Agregar Auto a un integrante del personal</h1>
+	</div>
+	<div data-role="content">	
+	Ingrese su folio:<input type="number" id="OPfolio"/>
+	
+
+	Placas:
+    <input type="text" id="OPplacas"/>
+	</div>
+    <div data-role="content">	
+    Color:
+    <select id="OPcolor">
+    <option>Rojo</option>
+    <option>Azul</option>
+    <option>Amarillo</option>
+    <option>Blanco</option>
+    <option>Negro</option>
+    <option>Gris</option>
+    <option>Verde</option>
+    <option>Rosa</option>
+    <option>Cafe</option>
+    <option>Morado</option>
+    <option>Anaranjado</option>
+    </select>
+	</div>
+    <div data-role="content">	
+    Marca:
+    <select id="OPmarca">
+    <option>Ford</option>
+    <option>Audi</option>
+    <option>Chevrolet</option>
+    <option>VolksWagen</option>
+    <option>Nissan</option>
+    </select>
+	</div>
+    <div data-role="content">	
+    Modelo:
+    <input type="number" min="1960" max="2014" id="OPmodelo"/>
+	</div>
+    <div data-role="content">	
+    <input type="button" value="Registrar vehiculo" id="OPenvioAutoPersonal"/>
+	</div>
+	<div data-role="footer">
+		<h4>Registrar</h4>
+	</div>
+</div>
+
+<div data-role="page" id="otroAutoAlumno">
+	<div data-role="header">
+		<h1>Agregar Auto a un alumno</h1>
+	</div>
+	<div data-role="content">	
+	Ingrese su folio:<input type="number" id="OAfolio"/>
+	
+
+	Placas:
+    <input type="text" id="OAplacas"/>
+	</div>
+    <div data-role="content">	
+    Color:
+    <select id="OAcolor">
+    <option>Rojo</option>
+    <option>Azul</option>
+    <option>Amarillo</option>
+    <option>Blanco</option>
+    <option>Negro</option>
+    <option>Gris</option>
+    <option>Verde</option>
+    <option>Rosa</option>
+    <option>Cafe</option>
+    <option>Morado</option>
+    <option>Anaranjado</option>
+    </select>
+	</div>
+    <div data-role="content">	
+    Marca:
+    <select id="OAmarca">
+    <option>Ford</option>
+    <option>Audi</option>
+    <option>Chevrolet</option>
+    <option>VolksWagen</option>
+    <option>Nissan</option>
+    </select>
+	</div>
+    <div data-role="content">	
+    Modelo:
+    <input type="number" min="1960" max="2014" id="OAmodelo"/>
+	</div>
+    <div data-role="content">	
+    <input type="button" value="Registrar vehiculo" id="OAenvioAutoAlumno"/>
+	</div>
+	<div data-role="footer">
+		<h4>Registrar</h4>
+	</div>
+</div>
+
+<div data-role="page" id="otroAuto">
+	<div data-role="header">
+		<h1>Agregar Auto a:</h1>
+	</div>
+	<div data-role="content">	
+	<ul data-role="listview">
+	<li><a href="#otroAutoAlumno">Alumnos</a></li>
+        <li><a href="#otroAutoPersonal">Personal</a></li>
+	</ul>
+
+	</div>
+	<div data-role="footer">
+		<h4>Registrar</h4>
+	</div>
+</div>
+
+
+
+
+
+
+
+<div data-role="page" id="registrar">
+	<div data-role="header">
+		<h1>Registrar</h1>
+	</div>
+	<div data-role="content">	
+    <ul data-role="listview">
+			<li><a href="#alumnos">Alumnos</a></li>
+            <li><a href="#personal">Personal</a></li>
+		</ul>	
+	</div>
+	<div data-role="footer">
+		<h4>Registrar</h4>
+	</div>
+</div>
+
+<div data-role="page" id="alumnos">
+	<div data-role="header">
+		<h1>Alumnos</h1>
+	</div>
+    <div data-role="content">	
+    Nombre:
+    <input type="text" id="nombre"/>
+	</div>
+    <div data-role="content">	
+    Apellido Paterno:
+    <input type="text" id="paterno"/>
+	</div>
+    <div data-role="content">	
+    Apellido Materno:
+    <input type="text" id="materno"/>
+	</div>
+	<div data-role="content">	
+    Carrera:
+    <select id="carreras">
+    <option>Ingeniería en Sistemas</option>
+    <option>Ingeniería en Gestión Empresarial</option>
+    <option>Ingeniería en Electromecánica</option>
+    <option>Ingeniería en Industrias Alimentarias</option>
+    <option>Ingeniería Industrial</option>
+    </select>
+	</div>
+    
+    <div data-role="content">	
+    Número de Control:
+    <input type="text" id ="numero" />
+	</div>
+    <div data-role="content">	
+    Modalidad:
+    <select id="modalidad">
+    <option>Escolarizado</option>
+    <option>Sabatino</option>
+    </select>
+	</div>
+    <ul data-role="listview">
+			<li><a href="#autoAlumno" id="envioAlumno">Continuar</a></li>
+		</ul>	
+	<div data-role="footer">
+		<h4>Registrar</h4>
+	</div>
+</div>
+
+<div data-role="page" id="autoAlumno">
+	<div data-role="header">
+		<h1>Datos del Vehículo</h1>
+	</div>
+	<div data-role="content">	
+    Placas:
+    <input type="text" id="placas"/>
+	</div>
+    <div data-role="content">	
+    Color:
+    <select id="color">
+    <option>Rojo</option>
+    <option>Azul</option>
+    <option>Amarillo</option>
+    <option>Blanco</option>
+    <option>Negro</option>
+    <option>Gris</option>
+    <option>Verde</option>
+    <option>Rosa</option>
+    <option>Cafe</option>
+    <option>Morado</option>
+    <option>Anaranjado</option>
+    </select>
+	</div>
+    <div data-role="content">	
+    Marca:
+    <select id="marca">
+    <option>Ford</option>
+    <option>Audi</option>
+    <option>Chevrolet</option>
+    <option>VolksWagen</option>
+    <option>Nissan</option>
+    </select>
+	</div>
+    <div data-role="content">	
+    Modelo:
+    <input type="number" min="1960" max="2014" id="modelo"/>
+	</div>
+    <div data-role="content">	
+    <input type="button" value="Registrar vehiculo" id="envioAutoAlumno"  onClick="alert("Auto registrado")"/>
+	</div>
+	<div data-role="footer">
+		<h4>Datos del Vehículo</h4>
+	</div>
+</div>
+
+<div data-role="page" id="personal">
+	<div data-role="header">
+		<h1>Personal</h1>
+	</div>
+    <div data-role="content">	
+    Nombre:
+    <input type="text" id="pnombre"/>
+	</div>
+    <div data-role="content">	
+    Apellido Paterno:
+    <input type="text" id="ppaterno"/>
+	</div>
+    <div data-role="content">	
+    Apellido Materno:
+    <input type="text" id="pmaterno"/>
+	</div>	
+    <ul data-role="listview">
+			<li><a href="#autoPersonal" id="envioPersonal">Continuar</a></li>
+		</ul>	
+	<div data-role="footer">
+		<h4>Personal</h4>
+	</div>
+</div>
+
+<div data-role="page" id="autoPersonal">
+	<div data-role="header">
+		<h1>Datos del Vehículo</h1>
+	</div>
+	<div data-role="content">	
+    Placas:
+    <input type="text" id="pplacas"/>
+	</div>
+    <div data-role="content">	
+    Color:
+    <select id="pcolor">
+    <option>Rojo</option>
+    <option>Azul</option>
+    <option>Amarillo</option>
+    <option>Blanco</option>
+    <option>Negro</option>
+    <option>Gris</option>
+    <option>Verde</option>
+    <option>Rosa</option>
+    <option>Cafe</option>
+    <option>Morado</option>
+    <option>Anaranjado</option>
+    </select>
+	</div>
+    <div data-role="content">	
+    Marca:
+    <select id="pmarca">
+    <option>Ford</option>
+    <option>Audi</option>
+    <option>Chevrolet</option>
+    <option>VolksWagen</option>
+    <option>Nissan</option>
+    </select>
+	</div>
+    <div data-role="content">	
+    Modelo:
+    <input type="number" min="1960" max="2014" id="pmodelo"/>
+	</div>
+    <div data-role="content">	
+    <input type="button" value="Registrar vehiculo" id="envioAutoPersonal" onClick="alert("Auto registrado")"/>
+	</div>
+	<div data-role="footer">
+		<h4>Datos del Vehículo</h4>
+	</div>
+</div>
+
+
+<div data-role="page" id="editar">
+	<div data-role="header">
+		<h1>Editar</h1>
+	</div>
+	<div data-role="content">	
+    <ul data-role="listview">
+			<li><a href="#editarAlumno">Alumnos</a></li>
+            <li><a href="">Personal</a></li>
+		</ul>	
+    </div>
+    <div data-role="footer">
+		<h4>Editar</h4>
+	</div>
+</div>
+
+
+    <div data-role="page" id="editarAlumno">
+	<div data-role="header">
+		<h1>Editar - Alumno</h1>
+	</div>
+	<div data-role="content">	
+    Folio:
+    <input type="text" id="txtbuscar"/>
+    </div>
+    <input type="button" id="btnbuscarAlumno" value="Buscar"/>
+    <br/>
+    <ul data-role="listview">
+			<li><a href="#editarAlumno">Editar</a></li>
+            
+            <li><a id="EliminarAlumno">Eliminar</a></li>
+            
+		</ul>
+    <div data-role="footer">
+		<h4>Editar - Alumno</h4>
+	</div>
+</div>
+
+ <div data-role="page" id="editarPersonal">
+	<div data-role="header">
+		<h1>Editar - Personal</h1>
+	</div>
+	<div data-role="content">	
+    Folio:
+    <input type="text" id="txtbuscarP"/>
+    </div>
+    <div data-role="content">	
+    <input type="button" id="btnbuscarPersonal" value="Buscar"/>
+    </div>
+    <br/>
+    <ul data-role="listview">
+			<li><a href="#editarPersonal">Editar</a></li>
+            <li><a id="EliminarPersonal">Eliminar</a></li>
+		</ul>
+    <div data-role="footer">
+		<h4>Editar - Personal</h4>
+	</div>
+</div>
+
+</body>
+</html>
